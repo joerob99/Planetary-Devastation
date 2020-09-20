@@ -9,6 +9,9 @@ void UPlanetBase::NativeOnInitialized()
 	Super::NativeOnInitialized();
 
 	OwningController = GetOwningPlayer();
+
+	/** Initial velocity. */
+	Velocity = FVector2D(0.0f, -1.0f) * Speed;
 }
 
 void UPlanetBase::NativeConstruct()
@@ -66,6 +69,7 @@ void UPlanetBase::Orbit()
 void UPlanetBase::Accelerate()
 {
 	FVector2D Direction = CenterOfScreen - ButtonLocation;
+	UPlanetaryDevastationMathLibrary::Normalize(Direction);
 	FVector2D CentripetalAcceleration = UPlanetaryDevastationMathLibrary::VCentripetalAcceleration(Speed, Radius) * Direction;
 	Velocity = Velocity + (CentripetalAcceleration * GetWorld()->DeltaTimeSeconds);
 }

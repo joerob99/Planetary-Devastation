@@ -30,10 +30,10 @@ private:
 	FVector2D ButtonLocation = FVector2D(0.0f);
 	FVector2D CalculateInitialScreenLocation() const;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Movement")
 	float AnchorXPosition = 0.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Movement")
 	float AnchorYPosition = 0.0f;
 
 	float Radius;
@@ -42,7 +42,6 @@ private:
 	/** Rotate around the center of the screen. */
 	void Orbit();
 
-	/** Measured in m/s. */
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float Speed = 10.0f;
 

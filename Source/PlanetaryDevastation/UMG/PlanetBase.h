@@ -25,5 +25,17 @@ protected:
 private:
 	FVector2D CenterOfScreen = FVector2D(0.0f);
 	FVector2D CalculateCenterOfScreen() const;
+
+	FVector2D ButtonLocation = FVector2D(0.0f);
+	FVector2D CalculateInitialScreenLocation() const;
+
+	UPROPERTY(EditAnywhere)
+	float AnchorXPosition = 0.0f;
+
+	UPROPERTY(EditAnywhere)
+	float AnchorYPosition = 0.0f;
+
+	float Radius;
+	float CalculateOrbitRadius() const;
 	
 };

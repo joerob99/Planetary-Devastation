@@ -20,6 +20,14 @@ void UPlanetBase::NativeConstruct()
 	Radius = CalculateOrbitRadius();
 }
 
+void UPlanetBase::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	Orbit();
+	Accelerate();
+}
+
 FVector2D UPlanetBase::CalculateCenterOfScreen() const
 {
 	int ViewportXSize = 0.0f;
@@ -46,6 +54,19 @@ float UPlanetBase::CalculateOrbitRadius() const
 {
 	/** Vector pointing from the button to the center of the screen. */
 	FVector2D ButtonToCenter = CenterOfScreen - ButtonLocation;
-	return UPlanetaryDevastationMathLibrary::Magnitude(ButtonToCenter);
+	return UPlanetaryDevastationMathLibrary::VMagnitude(ButtonToCenter);
+}
+
+void UPlanetBase::Orbit()
+{
+	ButtonLocation = ButtonLocation + (Velocity * GetWorld()->DeltaTimeSeconds);
+	SetPositionInViewport(ButtonLocation);
+}
+
+void UPlanetBase::Accelerate()
+{
+	FVector2D Direction = CenterOfScreen - ButtonLocation;
+	FVector2D CentripetalAcceleration = UPlanetaryDevastationMathLibrary::VCentripetalAcceleration(Speed, Radius) * Direction;
+	Velocity = Velocity + (CentripetalAcceleration * GetWorld()->DeltaTimeSeconds);
 }
 

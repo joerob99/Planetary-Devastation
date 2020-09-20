@@ -18,6 +18,7 @@ class PLANETARYDEVASTATION_API UPlanetBase : public UUserWidget
 public:
 	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 protected:
 	APlayerController* OwningController = nullptr;
@@ -37,5 +38,16 @@ private:
 
 	float Radius;
 	float CalculateOrbitRadius() const;
+
+	/** Rotate around the center of the screen. */
+	void Orbit();
+
+	/** Measured in m/s. */
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Speed = 10.0f;
+
+	FVector2D Velocity = FVector2D(0.0f);
+
+	void Accelerate();
 	
 };

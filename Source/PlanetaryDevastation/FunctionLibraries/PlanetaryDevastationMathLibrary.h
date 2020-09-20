@@ -13,6 +13,15 @@ class PLANETARYDEVASTATION_API UPlanetaryDevastationMathLibrary : public UBluepr
 
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	static float Magnitude(const FVector2D& Vector);
+	static float VMagnitude(const FVector2D& Vector);
+
+	UFUNCTION(BlueprintCallable)
+	static void Normalize(FVector2D& Vector);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static float VAngularVelocity(const float& Speed, const float& Radius);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	static float VCentripetalAcceleration(const float& Speed, const float& Radius);
 	
 };

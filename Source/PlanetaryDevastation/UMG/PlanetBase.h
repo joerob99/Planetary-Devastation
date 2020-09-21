@@ -31,10 +31,10 @@ private:
 	FVector2D CalculateInitialScreenLocation() const;
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	float AnchorXPosition = 0.0f;
+	float AnchorXPosition = 0.6f;
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	float AnchorYPosition = 0.0f;
+	float AnchorYPosition = 0.5f;
 
 	float Radius;
 	float CalculateOrbitRadius() const;
@@ -45,7 +45,11 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float Speed = 10.0f;
 
-	FVector2D Velocity = FVector2D(0.0f);
+	/** Needs to be a unit vector. */
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	FVector2D InitialDirection = FVector2D(0.0f, -1.0f);
+
+	FVector2D Velocity = FVector2D(0.0f, 0.0f);
 
 	void Accelerate();
 	

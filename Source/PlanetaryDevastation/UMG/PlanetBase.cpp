@@ -10,8 +10,7 @@ void UPlanetBase::NativeOnInitialized()
 
 	OwningController = GetOwningPlayer();
 
-	/** Initial velocity. */
-	Velocity = FVector2D(0.0f, -1.0f) * Speed;
+	Velocity = InitialDirection * Speed;
 }
 
 void UPlanetBase::NativeConstruct()

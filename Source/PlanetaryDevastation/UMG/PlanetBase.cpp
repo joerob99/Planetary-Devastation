@@ -3,6 +3,7 @@
 
 #include "PlanetBase.h"
 #include "PlanetaryDevastation/FunctionLibraries/PlanetaryDevastationMathLibrary.h"
+#include "UnrealClient.h"
 
 void UPlanetBase::NativeOnInitialized()
 {
@@ -10,16 +11,27 @@ void UPlanetBase::NativeOnInitialized()
 
 	OwningController = GetOwningPlayer();
 
-	Velocity = InitialDirection * Speed;
+	GEngine->GameViewport->Viewport->ViewportResizedEvent.AddUObject(this, &UPlanetBase::ResetPlanet);
 }
 
 void UPlanetBase::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	SetupPlanet();
+}
+
+void UPlanetBase::SetupPlanet()
+{
+	Velocity = InitialDirection * Speed;
 	CenterOfScreen = CalculateCenterOfScreen();
 	ButtonLocation = CalculateInitialScreenLocation();
 	Radius = CalculateOrbitRadius();
+}
+
+void UPlanetBase::ResetPlanet(FViewport* Viewport, uint32)
+{
+	SetupPlanet();
 }
 
 void UPlanetBase::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)

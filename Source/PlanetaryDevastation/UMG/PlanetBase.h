@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "PlanetBase.generated.h"
 
+class FViewport;
+
 /**
 * Base class for planet buttons.
 * Handles rotating widget around the center of the screen.
@@ -24,16 +26,22 @@ protected:
 	APlayerController* OwningController = nullptr;
 
 private:
+	/** Setup the necessary variables to calculate the orbit position. */
+	void SetupPlanet();
+	
+	/** The planet needs to reset it's position when the viewport size changes. */
+	void ResetPlanet(FViewport* Viewport, uint32);
+
 	FVector2D CenterOfScreen = FVector2D(0.0f);
 	FVector2D CalculateCenterOfScreen() const;
 
 	FVector2D ButtonLocation = FVector2D(0.0f);
 	FVector2D CalculateInitialScreenLocation() const;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.0", ClampMax = "1.0"), Category = "Movement")
 	float AnchorXPosition = 0.6f;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.0", ClampMax = "1.0"), Category = "Movement")
 	float AnchorYPosition = 0.5f;
 
 	float Radius;

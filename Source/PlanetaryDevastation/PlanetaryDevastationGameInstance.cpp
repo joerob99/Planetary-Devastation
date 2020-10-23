@@ -3,3 +3,8 @@
 
 #include "PlanetaryDevastationGameInstance.h"
 
+UPlanetaryDevastationGameInstance::UPlanetaryDevastationGameInstance(const FObjectInitializer& ObjectInitializer)
+{
+	
+}
+

@@ -10,5 +10,11 @@ UCLASS()
 class PLANETARYDEVASTATION_API UPlanetaryDevastationGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
+
+public:
+	UPlanetaryDevastationGameInstance(const FObjectInitializer& ObjectInitializer);
+
+private:
+	TSubclassOf<UUserWidget> MainMenuClass;
 	
 };

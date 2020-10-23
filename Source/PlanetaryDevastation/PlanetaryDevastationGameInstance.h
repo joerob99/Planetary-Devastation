@@ -13,8 +13,5 @@ class PLANETARYDEVASTATION_API UPlanetaryDevastationGameInstance : public UGameI
 
 public:
 	UPlanetaryDevastationGameInstance(const FObjectInitializer& ObjectInitializer);
-
-private:
-	TSubclassOf<UUserWidget> MainMenuClass;
 	
 };

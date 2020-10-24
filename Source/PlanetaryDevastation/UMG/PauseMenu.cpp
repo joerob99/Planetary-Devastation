@@ -30,29 +30,35 @@ void UPauseMenu::NativeConstruct()
 		const int NumLoopsToPlay = 0;
 		PlayAnimation(Hover, StartAtTime, NumLoopsToPlay);
 	}
+
+	if (APlayerController* const PlayerController = GetOwningPlayer())
+	{
+		FInputModeUIOnly InputMode;
+		InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+		bIsFocusable = true;
+		InputMode.SetWidgetToFocus(this->TakeWidget());
+		PlayerController->SetInputMode(InputMode);
+
+		PlayerController->bShowMouseCursor = true;
+	}
 }
 
 void UPauseMenu::ResumeGame()
 {
 	// GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Resume."));
 
-	// TODO: If the button is not activated (bAreButtonsEnabled == false), don't do anything.
-
 	if (FadeIn)
 	{
-		// TODO: Disable buttons.
-
 		const float StartAtTime = 0.0f;
 		const int NumLoopsToPlay = 1;
 		const EUMGSequencePlayMode::Type PlayMode = EUMGSequencePlayMode::Reverse;
 		PlayAnimation(FadeIn, StartAtTime, NumLoopsToPlay, PlayMode);
 
-		// TODO: Create unload function to enable buttons. Replace with remove from parent.
 		FTimerHandle UnloadMenuTimerHandle;
 		GetWorld()->GetTimerManager().SetTimer(
 			UnloadMenuTimerHandle,
 			this,
-			&UPauseMenu::RemoveFromParent,
+			&UPauseMenu::RemoveFromViewport,
 			FadeIn->GetEndTime(),
 			false
 		);
@@ -63,6 +69,11 @@ void UPauseMenu::ResumeGame()
 		RemoveFromParent();
 	}
 
-	// TODO: Set input enabled state. Make game instance function.
+	if (APlayerController* const PlayerController = GetOwningPlayer())
+	{
+		PlayerController->SetInputMode(FInputModeGameOnly());
+
+		PlayerController->bShowMouseCursor = false;
+	}
 }
 

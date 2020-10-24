@@ -17,7 +17,7 @@ class PLANETARYDEVASTATION_API AMainMenuGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	AMainMenuGameModeBase(const FObjectInitializer& ObjectInitializer);
+	AMainMenuGameModeBase();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UMG")
 	UUserWidget* GetMainMenu() const;
@@ -26,6 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY(EditAnywhere, Category = "UMG")
 	TSubclassOf<UUserWidget> MainMenuClass = nullptr;
 
 	UPROPERTY()

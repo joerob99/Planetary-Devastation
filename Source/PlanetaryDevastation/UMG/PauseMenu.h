@@ -13,11 +13,6 @@ class PLANETARYDEVASTATION_API UPauseMenu : public UUserWidget
 {
 	GENERATED_BODY()
 
-public:
-	/** Triggered by player input. */
-	UFUNCTION(BlueprintCallable)
-	void ResumeGame();
-
 protected:
 	virtual void NativeConstruct() override;
 	virtual void NativeOnInitialized() override;
@@ -31,5 +26,8 @@ private:
 
 	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"), BlueprintReadOnly)
 	UButton* ResumeButton = nullptr;
+
+	UFUNCTION()
+	void ResumeGame();
 	
 };

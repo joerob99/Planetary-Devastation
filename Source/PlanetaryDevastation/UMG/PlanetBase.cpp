@@ -85,3 +85,11 @@ void UPlanetBase::Accelerate()
 	Velocity = Velocity + (CentripetalAcceleration * GetWorld()->DeltaTimeSeconds);
 }
 
+void UPlanetBase::Reveal()
+{
+	if (FadeIn)
+	{
+		PlayAnimation(FadeIn);
+	}
+}
+

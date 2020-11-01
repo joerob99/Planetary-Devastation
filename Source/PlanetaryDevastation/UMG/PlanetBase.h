@@ -22,6 +22,10 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
+	/** Fades in the button. */
+	UFUNCTION(BlueprintCallable)
+	void Reveal();
+
 protected:
 	APlayerController* OwningController = nullptr;
 
@@ -60,5 +64,8 @@ private:
 	FVector2D Velocity = FVector2D(0.0f, 0.0f);
 
 	void Accelerate();
+
+	UPROPERTY(meta = (BindWidgetAnim, AllowPrivateAccess = "true"), BlueprintReadOnly, Category = "Animations")
+	UWidgetAnimation* FadeIn = nullptr;
 	
 };

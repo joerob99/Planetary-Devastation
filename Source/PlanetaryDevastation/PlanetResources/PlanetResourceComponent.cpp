@@ -68,8 +68,11 @@ int32 UPlanetResourceComponent::GetResourceNum() { return Resources.Num(); }
 // Starts a growth/hurt loop that affects planet vegetation based on various factors
 void UPlanetResourceComponent::IntervalGrowthLoop()
 {
-	GetWorld()->GetTimerManager().SetTimer(PlanetGrowTimerHandle, this, &UPlanetResourceComponent::GrowPlanet, PlanetHurtTimer / 2.0, false);
-	GetWorld()->GetTimerManager().SetTimer(PlanetHurtTimerHandle, this, &UPlanetResourceComponent::HurtPlanet, PlanetHurtTimer, false);
+	// If the planet isn't currently destroyed, set a timer to call growth and hurt events
+	if (!PlanetIsDestroyed) {
+		GetWorld()->GetTimerManager().SetTimer(PlanetGrowTimerHandle, this, &UPlanetResourceComponent::GrowPlanet, PlanetHurtTimer / 2.0, false);
+		GetWorld()->GetTimerManager().SetTimer(PlanetHurtTimerHandle, this, &UPlanetResourceComponent::HurtPlanet, PlanetHurtTimer, false);
+	}
 }
 
 void UPlanetResourceComponent::HurtPlanet()
@@ -79,10 +82,9 @@ void UPlanetResourceComponent::HurtPlanet()
 	// Clear all timers so that they can be used again
 	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
 
+	// Either kill the planet or re-loop
 	if (CurrentPlanetHealth <= MinPlanetHealth) { KillPlanet(); }
-
-	// Re-loop within the IntervalGrowthLoop();
-	IntervalGrowthLoop();
+	else { IntervalGrowthLoop(); }
 }
 
 void UPlanetResourceComponent::GrowPlanet()
@@ -98,6 +100,8 @@ void UPlanetResourceComponent::GrowPlanet()
 void UPlanetResourceComponent::KillPlanet()
 {
 	// Destroy planet's physical form and explode
+	CurrentPlanetHealth = MinPlanetHealth;
+	PlanetIsDestroyed = true;
 }
 
 

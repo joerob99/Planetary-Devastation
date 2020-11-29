@@ -89,6 +89,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Planet")
 	bool IsHomePlanet = false;
 
+	// track whether the planet has been 'killed' yet
+	bool PlanetIsDestroyed = false;
+
 	// Planet resource to health ratio determined by initial resources
 	int32 PlanetResourceRatio;
 

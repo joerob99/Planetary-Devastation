@@ -2,6 +2,7 @@
 
 
 #include "PlanetResourceComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UPlanetResourceComponent::UPlanetResourceComponent()
@@ -43,7 +44,7 @@ void UPlanetResourceComponent::AddResource(AActor* GivenResource)
 void UPlanetResourceComponent::RemoveResource(AActor* GivenResource)
 {
 	Resources.Remove(GivenResource);
-	GivenResource->Destroy();
+	//GivenResource->Destroy();
 }
 
 void UPlanetResourceComponent::AddAlien(AActor* GivenAlien)
@@ -58,12 +59,10 @@ void UPlanetResourceComponent::RemoveAlien(AActor* GivenAlien)
 }
 
 int32 UPlanetResourceComponent::GetPlanetHealth() {return CurrentPlanetHealth;}
-
 bool UPlanetResourceComponent::GetIsHomePlanet() {return IsHomePlanet;}
-
 int32 UPlanetResourceComponent::GetAlienNum() { return Aliens.Num(); }
-
 int32 UPlanetResourceComponent::GetResourceNum() { return Resources.Num(); }
+FString UPlanetResourceComponent::GetPlanetName() {return PlanetName;}
 
 // Starts a growth/hurt loop that affects planet vegetation based on various factors
 void UPlanetResourceComponent::IntervalGrowthLoop()
@@ -102,6 +101,9 @@ void UPlanetResourceComponent::KillPlanet()
 	// Destroy planet's physical form and explode
 	CurrentPlanetHealth = MinPlanetHealth;
 	PlanetIsDestroyed = true;
+
+	// Return to the main menu if the world blows up
+	if (IsHomePlanet) { UGameplayStatics::OpenLevel(GetWorld(), "MainMenu"); }
 }
 
 

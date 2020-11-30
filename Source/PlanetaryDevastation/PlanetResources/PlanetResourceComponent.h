@@ -48,6 +48,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Planet")
 	virtual int32 GetResourceNum();
 
+	UFUNCTION(BlueprintCallable, Category = "Planet")
+	virtual FString GetPlanetName();
+
 	// Starts a growth/hurt loop that affects planet vegetation based on various factors
 	UFUNCTION(BlueprintCallable, Category = "Planet")
 	virtual void IntervalGrowthLoop();

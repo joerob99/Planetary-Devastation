@@ -13,32 +13,12 @@ UPlanetResourceComponent::UPlanetResourceComponent()
 }
 
 // 
-void UPlanetResourceComponent::InitializeResourceList(TArray<AActor*> GivenResources)
-{
-	for (auto& Resource : GivenResources) {
-		Resources.Add(Resource);
-	}
-
-	// Tracks the ratio of resources to health
-	PlanetResourceRatio = Resources.Num() / StartPlanetHealth;
-
-	// Default values for debugging
-	if (PlanetResourceRatio <= 0.0) { PlanetResourceRatio = 0.5; }
-}
-
-void UPlanetResourceComponent::InitializeAlienList(TArray<AActor*> GivenAliens)
-{
-	for (auto& Alien : GivenAliens) {
-		Aliens.Add(Alien);
-	}
-
-	// Tracks the ratio of resources to health
-	//PlanetResourceRatio = Resources.Num() / StartPlanetHealth;
-}
+void UPlanetResourceComponent::InitializeResourceRatio(int32 StatisticResourceRatio) { PlanetResourceRatio = StatisticResourceRatio; }
 
 void UPlanetResourceComponent::AddResource(AActor* GivenResource)
 {
 	Resources.Add(GivenResource);
+
 }
 
 void UPlanetResourceComponent::RemoveResource(AActor* GivenResource)
@@ -59,6 +39,7 @@ void UPlanetResourceComponent::RemoveAlien(AActor* GivenAlien)
 }
 
 int32 UPlanetResourceComponent::GetPlanetHealth() {return CurrentPlanetHealth;}
+int32 UPlanetResourceComponent::GetPlanetMaxHealth() { return MaxPlanetHealth; }
 bool UPlanetResourceComponent::GetIsHomePlanet() {return IsHomePlanet;}
 int32 UPlanetResourceComponent::GetAlienNum() { return Aliens.Num(); }
 int32 UPlanetResourceComponent::GetResourceNum() { return Resources.Num(); }

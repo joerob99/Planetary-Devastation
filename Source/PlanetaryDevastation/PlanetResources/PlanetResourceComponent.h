@@ -19,10 +19,7 @@ public:
 protected:
 
 	UFUNCTION(BlueprintCallable, Category="Planet")
-	virtual void InitializeResourceList(TArray<AActor*> GivenResources);
-
-	UFUNCTION(BlueprintCallable, Category = "Planet")
-	virtual void InitializeAlienList(TArray<AActor*> GivenAliens);
+	virtual void InitializeResourceRatio(int32 StatisticResourceRatio);
 
 	UFUNCTION(BlueprintCallable, Category="Planet")
 	virtual void AddResource(AActor* GivenResource);
@@ -38,6 +35,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Planet")
 	virtual int32 GetPlanetHealth();
+
+	UFUNCTION(BlueprintCallable, Category = "Planet")
+	virtual int32 GetPlanetMaxHealth();
 
 	UFUNCTION(BlueprintCallable, Category = "Planet")
 	virtual bool GetIsHomePlanet();
@@ -92,11 +92,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Planet")
 	bool IsHomePlanet = false;
 
-	// track whether the planet has been 'killed' yet
+	// Track whether the planet has been 'killed' yet
 	bool PlanetIsDestroyed = false;
 
 	// Planet resource to health ratio determined by initial resources
-	int32 PlanetResourceRatio;
+	UPROPERTY(EditAnywhere, Category = "Planet", meta = (ClampMin = "1", ClampMax = "200"))
+	int32 PlanetResourceRatio = 10;
 
 	// Track current health to determine whether planet goes extinct or not
 	int32 CurrentPlanetHealth = StartPlanetHealth;

@@ -17,11 +17,15 @@ public:
 	UPlanetResourceComponent();
 
 	UPROPERTY(EditAnywhere, Category = "Planet", BlueprintReadWrite)
-		bool IsHomePlanet = false;
+	bool IsHomePlanet = false;
 
 	// Track whether the planet has been 'killed' yet
 	UPROPERTY(Category = "Planet", BlueprintReadWrite)
-		bool PlanetIsDestroyed = false;
+	bool PlanetIsDestroyed = false;
+
+	// Track whether the planet has been 'killed' yet
+	UPROPERTY(Category = "Planet", BlueprintReadWrite)
+	bool PlanetIsDoneGrowing = false;
 
 protected:
 

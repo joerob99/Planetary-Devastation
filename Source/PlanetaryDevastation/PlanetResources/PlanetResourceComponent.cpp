@@ -69,7 +69,11 @@ void UPlanetResourceComponent::HurtPlanet()
 
 void UPlanetResourceComponent::GrowPlanet()
 {
-	CurrentPlanetHealth += Resources.Num();
+	CurrentPlanetHealth += Resources.Num() / 8;
+
+	if (CurrentPlanetHealth >= MaxPlanetHealth && IsHomePlanet) {
+		PlanetIsDoneGrowing = true;
+	}
 
 	if (CurrentPlanetHealth > MaxPlanetHealth && CurrentPlanetHealth < MaxPlanetHealth * 2.0) {
 		// Possibly do something in the future to increase or inhibit growth based on how much it goes over the planet's

@@ -84,9 +84,9 @@ void UPlanetResourceComponent::KillPlanet()
 	PlanetIsDestroyed = true;
 
 	// Return to the main menu if the world blows up
-	if (IsHomePlanet) {
-		UGameplayStatics::OpenLevel(GetWorld(), "MainMenu");
-	}
+	//if (IsHomePlanet) {
+		//UGameplayStatics::OpenLevel(GetWorld(), "MainMenu");
+	//}
 }
 
 
@@ -95,4 +95,3 @@ void UPlanetResourceComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
-

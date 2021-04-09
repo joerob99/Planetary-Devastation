@@ -16,6 +16,13 @@ public:
 	// Sets default values for this component's properties
 	UPlanetResourceComponent();
 
+	UPROPERTY(EditAnywhere, Category = "Planet", BlueprintReadWrite)
+		bool IsHomePlanet = false;
+
+	// Track whether the planet has been 'killed' yet
+	UPROPERTY(Category = "Planet", BlueprintReadWrite)
+		bool PlanetIsDestroyed = false;
+
 protected:
 
 	UFUNCTION(BlueprintCallable, Category="Planet")
@@ -88,12 +95,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Planet")
 	float PlanetHurtTimer = 5.0;
-
-	UPROPERTY(EditAnywhere, Category = "Planet")
-	bool IsHomePlanet = false;
-
-	// Track whether the planet has been 'killed' yet
-	bool PlanetIsDestroyed = false;
 
 	// Planet resource to health ratio determined by initial resources
 	UPROPERTY(EditAnywhere, Category = "Planet", meta = (ClampMin = "1", ClampMax = "200"))
